@@ -1,0 +1,61 @@
+---
+title: "ExampleRmd"
+author: "Chris Morgan"
+date: "January 16, 2018"
+output: 
+  html_document
+    keep_md: true
+---
+# Introduction
+This R markdown gives the code and output for a function to return the mean of the pollutant across all monitors listed in the 'id' vector (ignoring NA values)
+
+#Specifications
+  * 'directory' is a character vector of length 1 indicating the location of the CSV files (the current working directory)
+  * 'pollutant' is a character vector of length 1 indicating the name of the pollutant for which we will calculate the mean; either "sulfate" or "nitrate".
+  * 'id' is an integer vector indicating the monitor ID numbers to be used
+# Important
+This data resides in the directory 
+"c:ljhk;asdf;ljkasf;ljkadsf"
+
+```{r}
+setwd("c:ljhk;asdf;ljkasf;ljkadsf")
+source("pollutantmean.R")
+pollutantmean <- function(directory,pollutant, id=1:332{
+  
+  fnames <- list.files()
+  dat <- data.frame()
+  for (i in id) {
+    dat <- rbind(dat, read.csv(fnames[i]))
+  }
+}
+)
+###change WD to specta directory
+setwd(paste(getwd(),"/specdata",sep=""))
+nitrate.mean <-pollutantmean(directory=getwd(),pollutant="nitrate")
+```
+
+The mean nitrate content for these stations is
+
+```{r}
+nitrate.mean
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

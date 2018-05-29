@@ -1,0 +1,100 @@
+---
+title: "CMorgan_Livesession2assignment"
+author: "ChrisMorgan"
+date: "January 21, 2018"
+output: html_document
+---
+***
+
+##Questions 1
+####What is a basic workflow for reproducible research
+
+
+The basic workflow can be seen below (image taken from reproducible research with R and R Studio by Christopher Gandrud). It consists of a user taking raw data from multiple sources and being able to go backwards and forward between data gathering, analysis, and forms of presentation. 
+
+image: ![](C:/Users/Chris/Documents/R/Working directory/6306/Unit 2/Workflow.Png)
+
+
+
+####What are five practical tips for making research reproducible?
+
+1. Document everything
+2. Everything is a (text) file
+3. All files should be human readable
+4. Explicitly tie your files together
+5. Have a plan to organize, store, and make your files available
+
+
+####Give an example of how you might implment each tip
+1. Record your session info so future users can diagnoses potential conflicts.
+2. Utilize text files since they  are future proof and anyone can open one.
+3. Comment frequently in your code so other users, or you, can understand how it works.
+4. Utilize tie commands to keep your files working together.
+5. Limit content in files so you end up with readable parts and not a giant mess of a "master program".
+
+
+####Which one of these do you think will be the most difficult?
+I personally think remembering to make files human readable is the hardest because it requires the user to be conscious of how they comment and organize their code. This requires a level of practice to become habit and it is something i will personally focus on.
+
+***
+
+##Question 2
+
+
+####Air Quality question 2 part a
+
+
+
+```{r q2 part a, echo=TRUE}
+plot(x=airquality$Month, y=airquality$Temp, 
+     xlab = "Month", ylab="Temperature", title("Temperature by Month"))
+```
+
+
+
+####Air Quality question 2 part b
+
+
+
+```{r q2 part b, echo=TRUE}
+plot(x=airquality$Temp, y=airquality$Ozone, 
+     xlab = "Temperature", ylab="Ozone", title("Temperature vs Ozone"))
+```
+
+
+####Air Quality question 2 part c
+Completed through portion a & b above...
+
+***
+
+
+##Question 3
+
+####Cars question 3 part a
+
+
+
+```{r q3 part a, echo=TRUE}
+plot(x=pressure$pressure,y=pressure$temperature, title("Temperature vs Pressure"),
+     xlab = "Pressure", ylab = "Temperature")
+```
+
+
+
+####Cars question 3 part b
+
+
+
+```{r q3 part b, echo=TRUE}
+plot(x=pressure$temperature,y=pressure$pressure, title("Pressure vs Temperature"),
+     xlab = "Temperature", ylab = "Pressure")
+```
+
+####cars question 3 part c
+Completed through portion a & b above...
+
+***
+
+####Swirl question 4
+Please see "Cmorganswirl8-11.txt"
+

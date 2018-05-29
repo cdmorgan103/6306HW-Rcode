@@ -1,0 +1,69 @@
+---
+title: "CMorgan_Livesession4assignment"
+author: "ChrisMorgan"
+date: "February 4, 2018"
+output: html_document
+---
+
+
+##Question 1
+```{r Q1, echo=TRUE}
+###if necessary, install "fivethirtyeight"###
+#install.packages("fivethirtyeight")
+library(fivethirtyeight)
+
+#assigns data to a dataframe
+df<-college_recent_grads
+
+###find more detailed list of data sets###
+#vignette("fivethirtyeight", package = "fivethirtyeight")
+
+###Site url for more info###
+#https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/
+
+dim(df)
+colnames(df)
+
+```
+
+## Question 2
+
+
+```{r Q2, echo=TRUE}
+###this question was weird and hard to understand so here is my best attempt to understand what is being asked for... ¯\_(ツ)_/¯
+
+myfunction <- function(x)
+  {
+  a<-colnames(df)
+  b<-length(a)
+  cat("colnames: ", a, sep = ",","\n")
+  cat("number of columns: ", b)
+  }
+
+myfunction(df)
+
+#creates table with unique count of major categories
+major_count<-as.data.frame(table(df$major_category))
+print(major_count)
+
+#adjusts the plot area 
+par(las=2,par(mar=c(5,10,4,1)+2))
+
+
+###install RColorBrewer if you don't have it already
+#install.packages("RColorBrewer")
+library(RColorBrewer)
+
+#Prints barplot for major category
+#uses mtext as label instead of xlabel to prevent text from writing over category labels
+barplot(major_count$Freq,names.arg = major_count$Var1,xlab="Count of Major category",horiz = T,
+   main = "Major categories for recent graduates",
+   col=brewer.pal(n=11,name = "Spectral"),xlim=c(0,30), cex.names = .7)
+mtext("Major Category",side=2,line=5,cex = 1.1)
+
+```
+
+## Github link
+https://github.com/cdmorgan103/SMU-MSDS-homework
+
+swirl uploaded as txt

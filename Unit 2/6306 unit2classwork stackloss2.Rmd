@@ -1,0 +1,25 @@
+---
+title: "StacklossUnit2classwrk"
+author: "Chris Morgan"
+date: "January 16, 2018"
+output: html_document
+---
+
+## R Markdown
+#Summary statistics 
+For "Stackloss"" dataset
+```{r}
+summary(stackloss)
+```
+
+#Compact Structure 
+(Structure function)
+```{r}
+str(stackloss)
+```
+
+# Plot
+Airflow vs Stackloss
+```{r}
+plot(x = stackloss$Air.Flow,y = stackloss$stack.loss)
+```

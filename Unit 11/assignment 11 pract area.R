@@ -1,0 +1,84 @@
+library(tseries)
+library(fpp2)
+library(MuMIn)
+library(forecast)
+library(dygraphs)
+library(xts)
+
+#####warmup####
+#pulls EU stock data and saves it as time series
+EU<-EuStockMarkets
+
+#create dax as timeseries
+daxts<-as.ts(x = EU[,'DAX'],frequency = 260, start = c(1991,130), end = c(1998,169))
+
+#plots
+plot(daxts,col="Blue")
+abline(v=1997,col="Red")
+title(main = "DAX stock value over time")
+
+#decomposes dax ts and plots
+dec.daxts<-decompose(daxts)
+plot(dec.daxts,col="Blue")
+abline(v=1997,col="Red")
+
+####temp data####
+maxtemp
+
+#removes max temp data pre 1990
+MaxTemp<-maxtemp[-(1:19)]
+MaxTemp<-ts(MaxTemp,frequency=1,start=c(1990,1),end=c(2016,1),names = 'temp')
+
+#Ses and plot of data
+sesMaxTemp<-ses(MaxTemp,initial="optimal", h=5)
+plot(sesMaxTemp,ylab = "Max Temperature", xlab = "Year")
+lines(fitted(sesMaxTemp), col="Blue")
+
+#AICc for ses
+sesaicc<-AICc(sesMaxTemp$model)
+
+#holt
+holtMaxTemp<-holt(MaxTemp, damped=T, h=5, initial = "optimal")
+plot(holtMaxTemp,ylab = "Max Temperature", xlab = "Year")
+lines(fitted(holtMaxTemp), col="Blue")
+
+#AICc for Holt
+holtaicc<-AICc(holtMaxTemp$model)
+
+#compare aicc for ses and holt
+sesaicc
+holtaicc
+#ses value is lower and provides a better fit
+
+
+#####wands work####
+#load data
+oldf<-read.csv("c://Users/Chris/Documents/R/Working directory/6306/Unit 11/Unit11TimeSeries_Ollivander.csv",header = F,col.names = c("Year","WandsSold"))
+grdf<-read.csv("c://Users/Chris/Documents/R/Working directory/6306/Unit 11/Unit11TimeSeries_Gregorovitch.csv",header = F,col.names = c("Year","WandsSold"))
+
+#convert to date formate
+oldf$Year<-as.Date(oldf$Year,"%m/%d/%Y")
+grdf$Year<-as.Date(grdf$Year,"%m/%d/%Y")
+
+#xts format
+olts<-xts(oldf$WandsSold,order.by = oldf$Year)
+grts<-xts(grdf$WandsSold,order.by = grdf$Year)
+
+#merge xts wand data
+wandxt<-merge.xts(olts,grts)
+
+#dygraphs
+dygraph(wandxt, main="Sales of wands from 1970 to 2017", ylab="Wands sold", xlab="Year") %>%
+  dyRangeSelector(height=50, fillColor = "grey") %>%
+  dyLegend(width = 400) %>%
+  dySeries("olts",label = "Ollivander", color = "Orange") %>%
+  dySeries("grts",label = "Gregorovitch", color = "Purple") %>%
+  dyOptions(stackedGraph = TRUE) %>%
+  dyShading(from = "1995-1-1", to = "1999-1-1", color = "#FFE6E6") %>%
+  dyHighlight(highlightSeriesOpts = list(strokeWidth = 3))
+
+
+
+
+
+

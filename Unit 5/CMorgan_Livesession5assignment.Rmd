@@ -1,0 +1,110 @@
+---
+title: "CMorgan_Livesession5assignment"
+author: "ChrisMorgan"
+date: "February 13, 2018"
+output: html_document
+---
+
+##Question 1
+###Questions 1a
+```{r Q1a, echo=TRUE}
+#a.) reads in data in dataframe
+df<-read.table(file = "C:/Users/Chris/Documents/R/Working directory/6306/Unit 5/yob2016.txt",
+               header = T,sep=";",col.names = c("Name","Gender","count"))
+```
+
+#
+
+###Questions 1b
+```{r Q1b, echo=TRUE}
+#b.) prints summary and structure
+summary(df)
+str(df)
+```
+
+#
+
+###Questions 1c
+```{r Q1c, echo=TRUE}
+#c.) identify bad data location in df, i returns postion, j returns bad name. cat prints it
+i<-grep("yyy",df$Name)
+j<-grep("yyy",df$Name,value = T)
+cat("The bad data name was:", j, "at row:", i)
+```
+
+#
+
+###Questions 1d
+```{r Q1d, echo=TRUE}
+#d.) deletes bad data row
+y2016<-df[-c(i),]
+```
+
+#
+
+##Question 2
+###Question 2a
+```{r Q2a, echo=TRUE}
+#a.) reads in data in dataframe
+y2015<-read.table(file = "C:/Users/Chris/Documents/R/Working directory/6306/Unit 5/yob2015.txt",header = T,sep=",",col.names = c("Name","Gender","count"))
+```
+
+#
+
+###Question 2b
+```{r Q2b, echo=TRUE}
+#b.) prints last 10
+tail(y2015,n = 10)
+```
+it seems unsusual that are bottom values would all tie for a count of 5, zyus and zyrus could also be duplicates by error
+
+#
+
+###Question 2c
+```{r Q2c, echo=TRUE}
+#merge the data
+final<-merge(y2015,y2016, by =c("Name","Gender"))
+```
+
+#
+
+##Question 3
+###Questions 3a
+```{r Q3a, echo=TRUE}
+#create a total column
+final$Total<-final$count.x+final$count.y
+```
+If we were to define popular as the total for top 20 names, 605621 people had popular names given to them. Top 10 would be 333478. Hard to define "popular"...
+#
+
+###Questions 3b
+```{r Q3b, echo=TRUE}
+#sort by total
+final<-final[order(-final$Total),]
+```
+
+#
+
+###Questions 3c
+```{r Q3c, echo=TRUE}
+#find male values and delete
+z<-grep("M",final$Gender)
+final<-final[-c(z),]
+head(final,n=10)
+```
+
+#
+
+###Questions 3d
+```{r Q3d, echo=TRUE}
+#generates export dataframe with desired columns
+export<-data.frame(final$Name,final$Total)
+colnames(export)[c(1,2)] <- c("Name","Total")
+#writes export to csv
+write.csv(x=export,file="GirlNames.csv",row.names = F)
+```
+
+#
+
+#Github location
+####located at 

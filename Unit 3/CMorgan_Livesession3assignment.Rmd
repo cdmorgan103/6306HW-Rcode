@@ -1,0 +1,103 @@
+---
+title: "CMorgan_Livesession3assignment"
+author: "ChrisMorgan"
+date: "January 31, 2018"
+output: html_document
+---
+
+
+##Questions 1
+#####cmd input below
+
+```{r Git1, echo=TRUE}
+#>cd C:\users\Chris\Documents\Git files
+
+#>git init
+##  Reinitialized existing Git repository in C:/Users/Chris/Documents/Git files/.git/
+  
+#>mkdir AwesomeData
+
+#>cd C:\users\Chris\Documents\Git files\AwesomeDa
+
+#>git clone https://github.com/awesomedata/awesome-public-datasets.git
+##  Cloning into 'awesome-public-datasets'...
+##  remote: Counting objects: 1427, done.
+##  remote: Total 1427 (delta 0), reused 0 (delta 0), pack-reused 1427
+##  Receiving objects: 100% (1427/1427), 497.07 KiB | 519.00 KiB/s, done.
+##  Resolving deltas: 100% (830/830), done.
+
+```
+
+##Question 2
+###Q 2 Part a
+
+```{r q2a, echo=TRUE}
+#load data to dataframe
+df <- read.csv('C:/Users/Chris/Documents/R/Working directory/6306/titanic.csv',header = T,sep = ",")
+```
+
+
+###Q 2 Part b
+
+```{r q2b, echo=TRUE}
+#creates array for male & female and performs sum
+male<-(df$Sex =='male')
+female<-(df$Sex =='female')
+maleC<-sum(male)
+femaleC<-sum(female)
+
+#prints number of males and females
+cat("Number of males = ", maleC, " & Number of females = ", femaleC)
+
+#plots frequency of females and males
+barplot(c(maleC,femaleC),names.arg = c("Male","Female"),
+        xlab= "Gender", ylab="Passenger Count", main = "Titanic passenger gender count", col = c("darkblue","Pink"))
+
+```
+
+###Q 2 Part c
+```{r q2c, echo=TRUE}
+#creates matrix for age Fare and Survived only per q2c
+dfask<-data.frame(df$Age,df$Fare,df$Survived)
+colnames(dfask)<-c("Age","Fare","Survived")
+
+#Applies mean to selected fields
+sapply(dfask,mean,na.rm=T)
+```
+
+
+
+##Question 3
+###Q 3
+```{r q3, echo=TRUE}
+#loads in data as dataframe
+ds <- read.csv('C:/Users/Chris/Documents/R/Working directory/6306/sleep_data_01.csv',header = T,sep = ",")
+
+#declares function
+myfunction <- function(x){
+  #calculates key statistics using na.rm to eliminate na values
+  MedianAge<-median(x$Age,na.rm = T)
+  MinDuration<-min(x$Duration,na.rm = T)
+  MaxDuration<-max(x$Duration,na.rm = T)
+  MeanRSES<-mean(x$RSES,na.rm = T)
+  SdRSES<-sd(x$RSES,na.rm = T)
+  
+  #generates a report
+  report<-data.frame(MedianAge,MeanRSES/5,SdRSES/5,MaxDuration - MinDuration)
+  
+  #creates appropriate column names for the report
+  colnames(report)<-c("MedianAge","SelfEsteem","SE_SD","DurationRange")
+  
+  #rounds report values
+  report<-round(report,2)
+  
+  #returns final report
+  return(report)
+}
+
+myfunction(ds)
+```
+
+
+##Question 4
+Please see txt CMorganSwirl12-14
